@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #1f5a35;
+  --color-deep: #0f3622;
+  --color-leaf: #7db943;
+  --color-sprout: #e7f0da;
+  --color-marigold: #f4c430;
+  --color-paper: #fbf6ea;
+  --color-sand: #f1e5cf;
+  --color-bark: #5e5850;
+  --color-ink: #22281f;
+  --color-beak: #d8463b;
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-nunito), system-ui, sans-serif;
+  --font-hand: var(--font-kalam), cursive;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-state: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --text-display-xl: clamp(2.6rem, min(1.4rem + 4.8vw, 12svh), 6.75rem);
+  --text-display-l: clamp(2.5rem, 1.5rem + 4.2vw, 5.5rem);
+  --text-display-m: clamp(2rem, 1.4rem + 2.6vw, 3.75rem);
+  --text-display-s: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+}
+
+:root {
+  --frame-inset: 0.625rem;
+  --frame-radius: 1.75rem;
+  color-scheme: light;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --frame-inset: 1rem;
+    --frame-radius: 2.5rem;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background: var(--color-sand);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--color-forest);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-marigold);
+    color: var(--color-deep);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-marigold);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  /* Paper grain shared by light chapters */
+  .paper {
+    background-color: var(--color-paper);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* The inset storybook frame */
+  .frame {
+    margin-inline: var(--frame-inset);
+    border-radius: var(--frame-radius);
+    overflow: clip;
+  }
+
+  .measure {
+    max-width: 64ch;
+  }
+
+  /* Links inside running text */
+  .prose-link {
+    color: var(--color-forest);
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: color-mix(in srgb, var(--color-leaf) 70%, transparent);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 180ms var(--ease-state);
+  }
+  .prose-link:hover {
+    text-decoration-color: var(--color-marigold);
+  }
+
+  /* Words split for scroll reveal start legible without JS */
+  .reveal-word {
+    display: inline-block;
+    will-change: opacity, transform;
+  }
+}
+
+/* Leaves drifting in the hero */
+@keyframes leaf-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(10px, -14px);
+  }
+  66% {
+    transform: translate(-8px, 8px);
+  }
+}
+.leaf-drift {
+  animation: leaf-drift 12s ease-in-out infinite;
+}
+
+/*
+ * First-paint states for the hero. The inline script in <head> sets
+ * data-motion="full" only when motion is allowed, so without JS or with
+ * reduced motion everything is visible straight away. Failsafes reveal
+ * the content if the client code never takes over.
+ */
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+html[data-motion="full"] .hero-mark:not([data-controlled]) {
+  opacity: 0;
+  animation: reveal-failsafe 0.6s 3.5s forwards;
+}
+html[data-motion="full"] .hero-copy:not(.is-ready) [data-hero-line] {
+  transform: translateY(105%);
+  animation: reveal-failsafe 0.8s 2.5s forwards;
+}
+
+/* Services stage: the icon settles in, the arcs draw outward */
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+}
+.stage-in {
+  animation: stage-in 450ms var(--ease-out-soft) both;
+}
+@keyframes arc-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+.stage-arcs path {
+  stroke-dasharray: 1;
+  animation: arc-draw 700ms var(--ease-out-soft) both;
+}
+.stage-arcs path:nth-child(2) {
+  animation-delay: 60ms;
+}
+.stage-arcs path:nth-child(3) {
+  animation-delay: 120ms;
+}
+.stage-arcs path:nth-child(4) {
+  animation-delay: 180ms;
+}
+.stage-arcs path:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+/* Approach: vertical path by default, horizontal story when JS enables it on large screens */
+.approach-list {
+  display: grid;
+  gap: 3.5rem;
+  margin-top: 3.5rem;
+  counter-reset: step;
+}
+@media (min-width: 768px) {
+  .approach-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 4rem;
+  }
+}
+@media (max-width: 1023px) {
+  .approach-item {
+    padding-left: 1.5rem;
+    border-left: 3px solid color-mix(in srgb, var(--color-leaf) 55%, transparent);
+  }
+}
+.approach.is-horizontal .approach-track {
+  display: flex;
+  align-items: flex-end;
+  gap: 6rem;
+  width: max-content;
+  height: 100svh;
+  margin-top: 0;
+  padding: 0 6rem 10svh 2.5rem;
+  will-change: transform;
+}
+.approach.is-horizontal .approach-intro {
+  width: 36rem;
+  padding-left: max(0rem, calc((100vw - 88rem) / 2));
+  margin-bottom: 0.5rem;
+}
+.approach.is-horizontal .approach-list {
+  display: flex;
+  gap: 6rem;
+  margin: 0;
+}
+.approach.is-horizontal .approach-item {
+  width: 21rem;
+}
+.approach.is-horizontal .approach-item:nth-child(even) {
+  margin-bottom: 4svh;
+}
+.approach.is-horizontal .approach-vine {
+  display: block;
+  top: 14svh;
+  height: 8rem;
+}
+.approach.is-horizontal .approach-bird {
+  display: block;
+}
+
+/* Lightbox */
+.lightbox[open] {
+  animation: lightbox-fade 260ms var(--ease-out-soft);
+}
+.lightbox::backdrop {
+  animation: lightbox-fade 260ms var(--ease-state);
+}
+@keyframes lightbox-fade {
+  from {
+    opacity: 0;
+  }
+}
+.lightbox-in {
+  animation: stage-in 380ms var(--ease-out-soft) both;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--color-deep);
+  color: var(--color-paper);
+  transition: top 180ms var(--ease-state);
+}
+.skip-link:focus {
+  top: 1rem;
+}
