@@ -1,14 +1,13 @@
-import { PendingService } from "@/components/ui/PendingService";
-import { pageMetadata } from "@/lib/seo";
+import type { Metadata } from "next";
+import { ComingSoon } from "@/components/ui/ComingSoon";
 
-// Unpublished: awaiting client confirmation of the scope of child development services.
-export const metadata = pageMetadata({
-  title: "Child Development Services",
-  description: "Information about wider child development services at Kahani Child Development Centre is being prepared.",
-  path: "/services/child-development",
-  noindex: true,
-});
+// Full page is in git history; it returns once the content is ready.
+export const metadata: Metadata = {
+  title: "Child development",
+  robots: { index: false },
+  alternates: { canonical: "/services/child-development" },
+};
 
 export default function Page() {
-  return <PendingService name="Child development services" path="/services/child-development" />;
+  return <ComingSoon title="Child development" />;
 }

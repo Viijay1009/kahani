@@ -21,7 +21,7 @@ export function FAQ() {
               Can&rsquo;t see your question? We&rsquo;re happy to talk it through.
             </p>
             <div className="mt-7">
-              <Button href="/contact" variant="secondary">
+              <Button href="/#enquiry" variant="secondary">
                 Ask us directly
               </Button>
             </div>

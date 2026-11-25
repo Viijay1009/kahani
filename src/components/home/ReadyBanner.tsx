@@ -22,7 +22,7 @@ export function ReadyBanner() {
           <p className="mt-2 text-ink/75">We’d love to meet you and your child. Call, WhatsApp or send an enquiry.</p>
         </div>
         <div className="flex flex-wrap justify-center gap-3">
-          <Button href="/contact#enquiry" icon={<CalendarHeart />}>
+          <Button href="/#enquiry" icon={<CalendarHeart />}>
             Book an appointment
           </Button>
           <Button href={CONTACT.whatsappHref} variant="secondary" icon={<WhatsAppIcon />}>

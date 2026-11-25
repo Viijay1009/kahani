@@ -23,9 +23,9 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Moments />
       <SupportGrid />
       <ApproachBand />
-      <Moments />
       <InsideKahani />
       <Team />
       <FAQ />

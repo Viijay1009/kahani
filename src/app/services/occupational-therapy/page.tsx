@@ -1,14 +1,13 @@
-import { PendingService } from "@/components/ui/PendingService";
-import { pageMetadata } from "@/lib/seo";
+import type { Metadata } from "next";
+import { ComingSoon } from "@/components/ui/ComingSoon";
 
-// Unpublished: awaiting client confirmation that this service is offered.
-export const metadata = pageMetadata({
-  title: "Occupational Therapy",
-  description: "Information about occupational therapy at Kahani Child Development Centre is being prepared.",
-  path: "/services/occupational-therapy",
-  noindex: true,
-});
+// Full page is in git history; it returns once the content is ready.
+export const metadata: Metadata = {
+  title: "Occupational therapy",
+  robots: { index: false },
+  alternates: { canonical: "/services/occupational-therapy" },
+};
 
 export default function Page() {
-  return <PendingService name="Occupational therapy" path="/services/occupational-therapy" />;
+  return <ComingSoon title="Occupational therapy" />;
 }

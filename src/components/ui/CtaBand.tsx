@@ -18,7 +18,7 @@ export function CtaBand({ title = "Ready to talk about your child?", body }: { t
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
-          <Button href="/contact#enquiry" variant="light">
+          <Button href="/#enquiry" variant="light">
             Book an appointment
           </Button>
           <Button href={CONTACT.whatsappHref} variant="ghost" icon={<WhatsAppIcon />}>

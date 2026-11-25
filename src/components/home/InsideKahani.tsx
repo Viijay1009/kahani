@@ -3,7 +3,7 @@ import { ParrotMark } from "@/components/brand/Logo";
 import { MaskReveal, ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const PHOTOS = [
-  { src: "/media/play-with-purpose.webp", alt: "Colourful worksheets used in a play-with-purpose session", caption: "Play with purpose" },
+  { src: "/media/pretend-salad.webp", alt: "Small hands holding a toy plate of pretend vegetables and a cup during pretend play", caption: "Pretend play: a veg salad" },
   { src: "/media/animal-stickers.webp", alt: "Animal, fruit and vegetable picture cards spread across a table", caption: "Our afternoon looks like this" },
   { src: "/media/home-practice-book.webp", alt: "A practice book with what, where and who questions for home practice", caption: "Books for home practice" },
 ];

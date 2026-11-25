@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { HeartHandshake, Puzzle, Route } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { HeartHandshake, Pause, Play, Puzzle, Route } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { VoiceArcs } from "@/components/brand/VoiceArcs";
 import { Sprig } from "@/components/brand/Botanical";
@@ -14,15 +15,32 @@ const POINTS = [
   { icon: HeartHandshake, title: "Parent guidance", body: "Support to carry home", tint: "bg-beak/12 text-beak" },
 ];
 
+// Real photos and reel stills from the centre, shown as a slow crossfade
+const SLIDES = [
+  { src: "/media/hero-stacking.webp", alt: "A child stacking big animal picture blocks into a tall tower", pos: "50% 40%" },
+  { src: "/media/centre-entrance.webp", alt: "Three people smiling under a green and yellow balloon arch at the Kahani entrance", pos: "50% 35%" },
+  { src: "/media/hero-ball-pit.webp", alt: "Hands playing in a ball pit of bright coloured balls during a session", pos: "50% 50%" },
+  { src: "/media/team-at-kahani.webp", alt: "The Kahani team standing together in front of the Kahani sign", pos: "50% 60%" },
+  { src: "/media/ephphatha-desk.webp", alt: "A framed Ephphatha print, sunflowers and a Kahani mug on the reception desk", pos: "50% 45%" },
+];
+const HOLD_MS = 4200;
+
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const video = useRef<HTMLVideoElement>(null);
+  const [slide, setSlide] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [reduced, setReduced] = useState(false);
 
-  // The clip only plays for people who are fine with motion
   useEffect(() => {
-    const v = video.current;
-    if (v && !prefersReducedMotion()) v.play().catch(() => {});
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read the motion preference once on mount
+    setReduced(prefersReducedMotion());
   }, []);
+
+  useEffect(() => {
+    if (!playing || reduced) return;
+    const t = window.setTimeout(() => setSlide((i) => (i + 1) % SLIDES.length), HOLD_MS);
+    return () => window.clearTimeout(t);
+  }, [slide, playing, reduced]);
 
   useGSAP(
     () => {
@@ -78,7 +96,7 @@ export function Hero() {
           </p>
 
           <div data-hero-fade className="mt-8 flex flex-wrap gap-3">
-            <Button href="/contact#enquiry">Book an appointment</Button>
+            <Button href="/#enquiry">Book an appointment</Button>
             <Button href="/services" variant="secondary">
               Explore our services
             </Button>
@@ -104,17 +122,46 @@ export function Hero() {
             data-hero-blob
             className="relative aspect-[4/5] overflow-hidden rounded-[58%_42%_48%_52%/46%_50%_50%_54%] bg-sprout shadow-[0_40px_80px_-40px_rgba(15,54,34,.55)] ring-[10px] ring-paper"
           >
-            <video
-              ref={video}
-              className="size-full object-cover"
-              src="/media/hero-ball-pit.mp4"
-              poster="/media/hero-ball-pit.webp"
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              aria-label="A child's hands playing in a ball pit of bright coloured balls during a session"
-            />
+            {SLIDES.map((sl, i) => (
+              <Image
+                key={sl.src}
+                src={sl.src}
+                alt={sl.alt}
+                fill
+                priority={i === 0}
+                sizes="(min-width: 1024px) 34rem, 90vw"
+                aria-hidden={i !== slide}
+                style={{ objectPosition: sl.pos }}
+                className={`object-cover transition-[opacity,transform] ease-[var(--ease-out-soft)] [transition-duration:900ms,5s] motion-reduce:transition-none ${i === slide ? "scale-100 opacity-100" : "scale-[1.06] opacity-0"}`}
+              />
+            ))}
+          </div>
+
+          <div className="mt-5 flex items-center justify-center gap-2 lg:justify-end lg:pr-8">
+            {SLIDES.map((sl, i) => (
+              <button
+                key={sl.src}
+                type="button"
+                onClick={() => setSlide(i)}
+                aria-label={`Show photo ${i + 1} of ${SLIDES.length}`}
+                aria-current={i === slide}
+                className="grid size-6 place-items-center"
+              >
+                <span
+                  className={`block h-2 rounded-full transition-[width,background-color] duration-300 ease-[var(--ease-out-soft)] ${i === slide ? "w-6 bg-forest" : "w-2 bg-forest/25 hover:bg-forest/50"}`}
+                />
+              </button>
+            ))}
+            {!reduced && (
+              <button
+                type="button"
+                onClick={() => setPlaying((p) => !p)}
+                aria-label={playing ? "Pause the photos" : "Play the photos"}
+                className="ml-1 grid size-9 place-items-center rounded-full text-forest ring-1 ring-forest/20 transition-[transform,background-color] duration-200 hover:bg-sprout active:scale-95"
+              >
+                {playing ? <Pause className="size-3.5" aria-hidden /> : <Play className="size-3.5" aria-hidden />}
+              </button>
+            )}
           </div>
 
           <div

@@ -9,14 +9,14 @@ import { prefersReducedMotion } from "@/lib/gsap";
 
 // Short clips from Kahani's own Instagram reels. Captions follow the text on each reel.
 const REELS = [
-  { src: "reel-bite-blocks", caption: "Bite blocks for jaw stability", alt: "A therapist using bite blocks during an oral motor activity" },
-  { src: "reel-body-parts", caption: "Learning body parts, one word at a time", alt: "A therapist playing with a potato-head toy to teach body parts" },
   { src: "reel-blowing", caption: "A DIY blowing activity", alt: "A homemade blowing toy made from a bottle, a straw and cotton balls" },
   { src: "reel-animals", caption: "All the animals on board", alt: "Toy animals lined up on toy trucks on a play mat" },
   { src: "reel-stacking", caption: "Stacking animal blocks", alt: "A tall tower of animal picture blocks being stacked" },
   { src: "reel-orange", caption: "Peeling an orange: a fine motor task", alt: "Small hands peeling an orange" },
   { src: "reel-hand-painting", caption: "Made with love for Mom", alt: "A hand-print painting being decorated with colours" },
   { src: "reel-puzzle-break", caption: "A small break with a puzzle", alt: "Hands fitting puzzle blocks together on a play mat" },
+  { src: "reel-bite-blocks", caption: "Bite blocks for jaw stability", alt: "A therapist using bite blocks during an oral motor activity" },
+  { src: "reel-body-parts", caption: "Learning body parts, one word at a time", alt: "A therapist playing with a potato-head toy to teach body parts" },
 ];
 
 export function Moments() {

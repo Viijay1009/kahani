@@ -87,7 +87,7 @@ export function MobileMenu({
           <WhatsAppIcon className="size-5" /> WhatsApp
         </a>
         <Link
-          href="/contact#enquiry"
+          href="/#enquiry"
           onClick={onClose}
           className="col-span-2 flex min-h-14 items-center justify-center rounded-full ring-2 ring-inset ring-forest font-bold text-forest"
         >

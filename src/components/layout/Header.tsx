@@ -128,7 +128,7 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <div className="hidden sm:block">
-              <Button href="/contact#enquiry" className="min-h-11 px-5">
+              <Button href="/#enquiry" className="min-h-11 px-5">
                 Book an appointment
               </Button>
             </div>

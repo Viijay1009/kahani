@@ -1,24 +1,13 @@
-import { PageHero } from "@/components/ui/PageHero";
-import { CtaBand } from "@/components/ui/CtaBand";
-import { Gallery } from "@/components/sections/Gallery";
-import { pageMetadata } from "@/lib/seo";
+import type { Metadata } from "next";
+import { ComingSoon } from "@/components/ui/ComingSoon";
 
-export const metadata = pageMetadata({
-  title: "Gallery: Inside Kahani Child Development Centre",
-  description: "Photos from Kahani Child Development Centre in BTM 2nd Stage, Bengaluru.",
-  path: "/gallery",
-});
+// Full page is in git history; it returns once the content is ready.
+export const metadata: Metadata = {
+  title: "Gallery",
+  robots: { index: false },
+  alternates: { canonical: "/gallery" },
+};
 
-export default function GalleryPage() {
-  return (
-    <>
-      <PageHero
-        crumbs={[{ name: "Gallery", path: "/gallery" }]}
-        title="Gallery"
-        lead={<p>A look inside Kahani. We only share photos of children with their families&rsquo; permission.</p>}
-      />
-      <Gallery />
-      <CtaBand />
-    </>
-  );
+export default function Page() {
+  return <ComingSoon title="Gallery" />;
 }

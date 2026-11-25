@@ -1,26 +1,13 @@
-import { PageHero } from "@/components/ui/PageHero";
-import { CtaBand } from "@/components/ui/CtaBand";
-import { Team } from "@/components/sections/Team";
-import { pageMetadata } from "@/lib/seo";
+import type { Metadata } from "next";
+import { ComingSoon } from "@/components/ui/ComingSoon";
 
-export const metadata = pageMetadata({
-  title: "Our Team: Child Speech Therapist in BTM",
-  description:
-    "Meet the people behind Kahani Child Development Centre in BTM 2nd Stage, Bengaluru, including our speech and language therapist.",
-  path: "/our-team",
-});
+// Full page is in git history; it returns once the content is ready.
+export const metadata: Metadata = {
+  title: "Our team",
+  robots: { index: false },
+  alternates: { canonical: "/our-team" },
+};
 
-export default function TeamPage() {
-  return (
-    <>
-      <PageHero
-        crumbs={[{ name: "Our Team", path: "/our-team" }]}
-        note="The people behind the care"
-        title="Our team"
-        lead={<p>Qualified, caring people who take the time to understand your child and your family.</p>}
-      />
-      <Team showLink={false} />
-      <CtaBand />
-    </>
-  );
+export default function Page() {
+  return <ComingSoon title="Our team" />;
 }
