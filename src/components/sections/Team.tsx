@@ -13,14 +13,14 @@ export function Team({ headingLevel = "h2", showLink = true }: { headingLevel?: 
           <VoiceArcs className="pointer-events-none absolute -top-10 -left-12 w-40 opacity-60 md:w-56" strokeWidth={4} />
           <MaskReveal className="relative aspect-[3/4] overflow-hidden rounded-[2rem]">
             <Image
-              src="/img/opening-day.webp"
-              alt="A smiling woman holding yellow flowers in front of the Kahani sign on opening day"
+              src="/media/team-at-kahani.webp"
+              alt="The Kahani team standing together in front of the Kahani sign at the centre"
               fill
               sizes="(min-width: 1024px) 38vw, 100vw"
               className="object-cover"
             />
           </MaskReveal>
-          <p className="mt-4 font-hand text-lg text-bark">Opening day at Kahani, BTM 2nd Stage</p>
+          <p className="mt-4 font-hand text-lg text-bark">The Kahani team at our centre in BTM 2nd Stage</p>
         </div>
 
         <ScrollReveal className="lg:col-span-7 lg:pt-10">

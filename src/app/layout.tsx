@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Kalam, Nunito_Sans } from "next/font/google";
+import { Fredoka, Kalam, Nunito_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/ui/JsonLd";
@@ -7,10 +7,10 @@ import { SITE } from "@/lib/constants";
 import { businessJsonLd } from "@/lib/seo";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
   subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
+  weight: ["500", "600"],
   display: "swap",
 });
 
@@ -57,7 +57,7 @@ const motionScript = `try{document.documentElement.dataset.motion=matchMedia('(p
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${fraunces.variable} ${nunito.variable} ${kalam.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${fredoka.variable} ${nunito.variable} ${kalam.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />
       </head>

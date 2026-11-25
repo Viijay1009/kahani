@@ -6,13 +6,13 @@
   --color-leaf: #7db943;
   --color-sprout: #e7f0da;
   --color-marigold: #f4c430;
-  --color-paper: #fbf6ea;
-  --color-sand: #f1e5cf;
+  --color-paper: #fffcf5;
+  --color-sand: #fbf3e3;
   --color-bark: #5e5850;
   --color-ink: #22281f;
   --color-beak: #d8463b;
 
-  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-display: var(--font-fredoka), "Nunito", system-ui, sans-serif;
   --font-sans: var(--font-nunito), system-ui, sans-serif;
   --font-hand: var(--font-kalam), cursive;
 
@@ -74,10 +74,9 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-variation-settings: "SOFT" 100, "WONK" 1;
-    font-weight: 500;
-    line-height: 1.02;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.012em;
     color: var(--color-forest);
     text-wrap: balance;
   }
@@ -136,23 +135,6 @@
   }
 }
 
-/* Leaves drifting in the hero */
-@keyframes leaf-drift {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  33% {
-    transform: translate(10px, -14px);
-  }
-  66% {
-    transform: translate(-8px, 8px);
-  }
-}
-.leaf-drift {
-  animation: leaf-drift 12s ease-in-out infinite;
-}
-
 /*
  * First-paint states for the hero. The inline script in <head> sets
  * data-motion="full" only when motion is allowed, so without JS or with
@@ -165,12 +147,15 @@
     transform: none;
   }
 }
-html[data-motion="full"] .hero-mark:not([data-controlled]) {
-  opacity: 0;
-  animation: reveal-failsafe 0.6s 3.5s forwards;
+/* Reels carousel: swipeable, no visible scrollbar */
+.moments-track {
+  scrollbar-width: none;
+}
+.moments-track::-webkit-scrollbar {
+  display: none;
 }
 html[data-motion="full"] .hero-copy:not(.is-ready) [data-hero-line] {
-  transform: translateY(105%);
+  opacity: 0;
   animation: reveal-failsafe 0.8s 2.5s forwards;
 }
 
